@@ -2,6 +2,7 @@
 #include "mmwave/mmwave_cfg.h"
 
 #include <ament_index_cpp/get_package_share_directory.hpp>
+#include <rclcpp/logging.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
 
@@ -106,7 +107,8 @@ class MMWaveDevice {
 
 class MMWaveNode : public rclcpp::Node {
  public:
-  MMWaveNode(const std::string &name) : Node(name) {
+ 
+  void declare_and_get_parameters() {
     declare_parameter<std::string>("device_id", "");
     get_parameter<std::string>("device_id", device_id);
 
@@ -115,6 +117,14 @@ class MMWaveNode : public rclcpp::Node {
 
     declare_parameter<std::string>("frame_id", "mmwave");
     get_parameter<std::string>("frame_id", frame_id);
+
+    declare_parameter<float>("snr_threshold", 0.0);
+    get_parameter<float>("snr_threshold", snr_threshold);
+  }
+
+  MMWaveNode(const std::string &name) : Node(name) {
+
+    declare_and_get_parameters();
 
     if (device_id.empty()) {
       throw std::runtime_error("device_id is not set");
@@ -158,11 +168,15 @@ class MMWaveNode : public rclcpp::Node {
 
           auto msg = empty_point_cloud(frame_id, num_objects);
           msg.header.stamp = now();
-          msg.data.resize(24 * num_objects);
-          for (int i = 0; i < num_objects; i++) {
-            memcpy(&msg.data[24 * i], &objects[i], 24);
-          }
 
+          // Filter points based on an snr_threshold, and populate
+          if(objects->snr > snr_threshold){
+            msg.data.resize(24 * num_objects);
+            for (int i = 0; i < num_objects; i++) {
+              memcpy(&msg.data[24 * i], &objects[i], 24);
+            }
+          }
+          
           pub->publish(msg);
         }
       }
@@ -174,6 +188,7 @@ class MMWaveNode : public rclcpp::Node {
   std::string device_id;
   std::string frame_id;
   std::string config_file;
+  float snr_threshold;
 
   std::unique_ptr<MMWaveDevice> device;
   std::vector<sensor_msgs::msg::PointField> fields;

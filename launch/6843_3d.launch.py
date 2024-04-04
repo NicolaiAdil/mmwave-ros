@@ -4,10 +4,12 @@ from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
 devices = [
-    "00ED2284",
-    # "00F48CC4",
+    # "00ED2284",
+     "00F48CC4",
     # "00F48C12",
 ]
+
+snr_threshold = 20.0
 
 def generate_launch_description():
     return LaunchDescription([
@@ -24,6 +26,7 @@ def generate_launch_description():
                     "6843_3d.cfg"
                 ]),
                 "frame_id": f"mmwave_{i}",
+                "snr_threshold": snr_threshold,
             }],
             output="screen",
             emulate_tty=True

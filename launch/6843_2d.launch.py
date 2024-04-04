@@ -9,6 +9,8 @@ devices = [
     # "00F48C12",
 ]
 
+snr_threshold = 20.0
+
 def generate_launch_description():
     return LaunchDescription([
         Node(
@@ -24,6 +26,7 @@ def generate_launch_description():
                     "6843_2d.cfg"
                 ]),
                 "frame_id": f"mmwave_{i}",
+                "snr_threshold": snr_threshold,
             }],
             output="screen",
             emulate_tty=True
