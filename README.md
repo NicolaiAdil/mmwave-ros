@@ -4,12 +4,10 @@
 
 ## Table of Contents
 1. Introduction
-2. Installation
-3. Usage
+2. Prerequisites
+3. Installation and Usage
 4. Debugging
-5. Contributing
-6. License
-7. Contact
+
 
 ## Introduction
 A driver for the [IWR6843-ISK](https://www.ti.com/tool/IWR6843ISK) radar from Texas Instrument written in C++ for ROS2 which publishes a pointcloud2.
@@ -30,7 +28,7 @@ A driver for the [IWR6843-ISK](https://www.ti.com/tool/IWR6843ISK) radar from Te
     colcon build
     source install/setup.bash
     ```
-3. Modify `devices` in the launch file to correspond to your radars. Run the following script to list your device id's
+3. Modify the variable `devices` in the launch files to correspond to your radars. Run the following script to list your device id's
     ```bash
     ./extract_device_id.sh
     ```
