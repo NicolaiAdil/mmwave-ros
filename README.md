@@ -13,13 +13,13 @@
 A driver for the [IWR6843-ISK](https://www.ti.com/tool/IWR6843ISK) radar from Texas Instrument written in C++ for ROS2 which publishes a pointcloud2.
 
 ## Prerequisites
-* **ROS2**: Ubuntu 22.04 with Humble tested
+* **ROS2**: Ubuntu 22.04 with Humble and Foxy tested
 * **IWR6843-ISK** flashed with out-of-box firmware. See instructions [here](https://www.ti.com/video/6205855073001) for flashing the device.
 
 ## Installation and Usage
 1. Clone the project and cd into it
     ```bash
-    git clone git@github.com:MStarvik/mmwave-ros.git
+    git clone git@github.com:NicolaiAdil/mmwave-ros.git
     cd mmwave-ros
     ```
 2. Install neccessary packages, build the project and source it
