@@ -43,7 +43,6 @@ A driver for the [IWR6843-ISK](https://www.ti.com/tool/IWR6843ISK) radar from Te
 
 
 ## Debugging
-This section is for helping users troubleshoot and debug issues. Include common errors, their solutions, and debugging tips.
 
 ### Failed to open device: Permission denied.
 
