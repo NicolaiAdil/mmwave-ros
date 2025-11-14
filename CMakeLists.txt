@@ -21,6 +21,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 
 add_executable(mmwave_node
   src/mmwave_node.cpp
@@ -34,7 +35,8 @@ target_include_directories(mmwave_node
 
 ament_target_dependencies(mmwave_node
   rclcpp
-  sensor_msgs)
+  sensor_msgs
+  ament_index_cpp)
 
 add_executable(mmwave_config
   src/mmwave_config.cpp
